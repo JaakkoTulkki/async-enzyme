@@ -1,0 +1,25 @@
+{
+  "name": "async-enzyme",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "enzyme": "^3.7.0",
+    "enzyme-adapter-react-16": "^1.7.0",
+    "jest": "^23.6.0",
+    "jest-cli": "^23.6.0",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3"
+  },
+  "jest": {
+    "setupTestFrameworkScriptFile": "./enzyme.adapter.js"
+  }
+}
