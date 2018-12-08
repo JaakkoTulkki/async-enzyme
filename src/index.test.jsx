@@ -1,37 +1,24 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import {mount} from 'enzyme';
 import {TestComponent} from "./test.component"
 import {waitFor} from "./index"
 
 let component;
 const selector = '[data-test-id="text"]'
 describe('TestComponent', () => {
-  describe('as sync', () => {
-    beforeEach(() => {
-      component = mount(<TestComponent/>);
-      component.find('li').at(1).simulate('click');
-    });
-
-    it('should display results', () => {
-      expect(component.find(selector).text()).toEqual('Chosen is 2')
-    });
+  beforeEach(() => {
+    component = mount(<TestComponent async/>);
+    component.find('li').at(1).simulate('click');
   });
 
-  describe('as async', () => {
-    beforeEach(() => {
-      component = mount(<TestComponent async/>);
-      component.find('li').at(1).simulate('click');
-    });
+  it('should not display results with zero update()', () => {
+    expect(component.find(selector).length).toEqual(0);
+  });
 
-    it('should not display results with zero update()', () => {
-      expect(component.find(selector).length).toEqual(0);
-    });
-
-    it('should render results with waitFor()', async (done) => {
-      await waitFor(component, selector);
-      expect(component.find(selector).text()).toEqual('Chosen is 2');
-      done();
-    });
+  it('should render results with waitFor()', async (done) => {
+    await waitFor(component, selector);
+    expect(component.find(selector).text()).toEqual('Chosen is 2');
+    done();
   });
 })
 
@@ -50,7 +37,7 @@ describe('waitFor', () => {
     done();
   });
 
-  it('should throw if element not present (incorrect selector)', async (done) => {
+  it('should throw if element not present (incorrect selector) with default timeout', async (done) => {
     const component = mount(<TestComponent/>);
     await expect(waitFor(component, 'h1')).rejects.toThrow('Could not locate element with the following selector: h1 in 100ms');
     done();

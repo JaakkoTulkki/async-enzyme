@@ -11,10 +11,7 @@ export class TestComponent extends React.Component{
     }
 
     async select(num) {
-        if(this.props.async) {
-          await wait(0);
-          await wait(0);
-        }
+        await wait(0);
         this.setState({chosen: num})
     }
 
