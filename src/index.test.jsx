@@ -1,7 +1,7 @@
 import React from 'react';
 import {mount} from 'enzyme';
 import {TestComponent} from "./test.component"
-import {waitFor} from "./index"
+import {waitFor, waitNotToThrow} from "./index"
 
 let component;
 const selector = '[data-test-id="text"]'
@@ -40,6 +40,32 @@ describe('waitFor', () => {
   it('should throw if element not present (incorrect selector) with default timeout', async (done) => {
     const component = mount(<TestComponent/>);
     await expect(waitFor(component, 'h1')).rejects.toThrow('Could not locate element with the following selector: h1 in 100ms');
+    done();
+  });
+});
+
+describe('waitNotToThrow', () => {
+  beforeEach(() => {
+    component = mount(<TestComponent/>);
+  });
+
+  it('should throw if cb does not stop throwing within default timeout', async (done) => {
+    await expect(waitNotToThrow(component, (component) => expect(component.find(selector).text()).toEqual('fd')))
+      .rejects.toThrow('Still rejecting after 100ms.');
+    done();
+  });
+
+  it('should throw if cb does not stop throwing within a set timeout', async (done) => {
+    await expect(waitNotToThrow(component, (component) => expect(component.find(selector).text()).toEqual('fd'), 2))
+      .rejects.toThrow('Still rejecting after 2ms.');
+    done();
+  });
+
+  it('should not throw if cb stops throwing within the timeout period', async (done) => {
+    component.find('li').at(1).simulate('click');
+    await expect(waitNotToThrow(component, (component) =>
+      expect(component.find(selector).text()).toEqual('Chosen is 2')
+    )).resolves.toEqual(undefined);
     done();
   });
 });

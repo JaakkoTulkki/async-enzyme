@@ -26,6 +26,28 @@ function waitFor(component , selector, timeout=100) {
     })
 }
 
+function waitNotToThrow(component, cb, timeout=100) {
+  component.update();
+  return new Promise((resolve, reject) => {
+    let timeCounter = 0;
+    const interval = 2;
+    const intervalId = setInterval(() => {
+      try {
+        cb(component);
+        clearInterval(intervalId);
+        return resolve();
+      } catch (e) {
+        component.update();
+        timeCounter += interval;
+        if(timeCounter >= timeout) {
+          clearInterval(intervalId);
+          return reject(new Error('Still rejecting after ' + timeout + 'ms.'));
+        }
+      }
+    }, interval);
+  })
+}
+
 module.exports = {
-  waitFor,
+  waitFor, waitNotToThrow,
 }
