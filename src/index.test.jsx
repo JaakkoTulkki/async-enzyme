@@ -28,7 +28,8 @@ describe('waitFor', () => {
   });
 
   it('should not throw if element present', async (done) => {
-    await expect(waitFor(component, 'ul')).resolves.toEqual(undefined);
+    component.find('li').at(1).simulate('click');
+    await expect(waitFor(component, selector)).resolves.toEqual(undefined);
     done();
   });
 
