@@ -39,18 +39,20 @@ describe('waitFor', () => {
   beforeEach(() => {
     component = mount(<TestComponent/>);
   });
-  it('should not throw element present', async (done) => {
-    waitFor(component, selector);
-    done();
-  });
 
-  it('should throw if element not present (incorrect selector)', async (done) => {
-    await expect(waitFor(component, 'h1')).rejects.toThrow('Could not locate element with the following selector: h1 in 100ms');
+  it('should not throw if element present', async (done) => {
+    await waitFor(component, 'ul');
     done();
   });
 
   it('should throw if element not present in the passed timeout', async (done) => {
     await expect(waitFor(component, 'h1', 1)).rejects.toThrow('Could not locate element with the following selector: h1 in 1ms');
+    done();
+  });
+
+  it('should throw if element not present (incorrect selector)', async (done) => {
+    const component = mount(<TestComponent/>);
+    await expect(waitFor(component, 'h1')).rejects.toThrow('Could not locate element with the following selector: h1 in 100ms');
     done();
   });
 });
