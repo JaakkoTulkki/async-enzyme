@@ -41,7 +41,7 @@ describe('waitFor', () => {
   });
 
   it('should not throw if element present', async (done) => {
-    await waitFor(component, 'ul');
+    await expect(waitFor(component, 'ul')).resolves.toEqual(undefined);
     done();
   });
 
