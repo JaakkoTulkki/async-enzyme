@@ -3,6 +3,9 @@ Helper library to work with Promises using Enzyme.
 The library's main purpose is to provide helper functions to flush
 Promise resolution queues.
 
+### Install
+`npm install --save-dev async-enzyme-helpers`
+
 ## Usage with React and Jest
 Assume you had the component below. The user is shown two items to click.
 On click, some async operations are done (e.g. fetching from the server), and
