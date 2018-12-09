@@ -15,6 +15,13 @@ describe('TestComponent', () => {
     expect(component.find(selector).length).toEqual(0);
   });
 
+  it('should not display results with two update()', async (done) => {
+    await component.update();
+    await component.update();
+    expect(component.find(selector).length).toEqual(0);
+    done();
+  });
+
   it('should render results with waitFor()', async (done) => {
     await waitFor(component, selector);
     expect(component.find(selector).text()).toEqual('Chosen is 2');
