@@ -7,7 +7,7 @@ let component;
 const selector = '[data-test-id="text"]'
 describe('TestComponent', () => {
   beforeEach(() => {
-    component = mount(<TestComponent async/>);
+    component = mount(<TestComponent />);
     component.find('li').at(1).simulate('click');
   });
 
