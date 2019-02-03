@@ -53,19 +53,20 @@ describe('waitFor', () => {
 });
 
 describe('waitNotToThrow', () => {
+  const expectedErrorMessage = 'Method “text” is only meant to be run on a single node. 0 found instead.';
   beforeEach(() => {
     component = mount(<TestComponent/>);
   });
 
   it('should throw if cb does not stop throwing within default timeout', async (done) => {
     await expect(waitNotToThrow(component, (component) => expect(component.find(selector).text()).toEqual('fd')))
-      .rejects.toThrow('Still rejecting after 100ms.');
+      .rejects.toThrow(`Still rejecting after 100ms: ${expectedErrorMessage}`);
     done();
   });
 
   it('should throw if cb does not stop throwing within a set timeout', async (done) => {
     await expect(waitNotToThrow(component, (component) => expect(component.find(selector).text()).toEqual('fd'), 2))
-      .rejects.toThrow('Still rejecting after 2ms.');
+      .rejects.toThrow(`Still rejecting after 2ms: ${expectedErrorMessage}`);
     done();
   });
 

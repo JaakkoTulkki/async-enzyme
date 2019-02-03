@@ -32,6 +32,8 @@
     "react-dom": "^16.6.3"
   },
   "jest": {
-    "setupTestFrameworkScriptFile": "./enzyme.adapter.js"
+    "setupTestFrameworkScriptFile": "./enzyme.adapter.js",
+    "collectCoverageFrom": ["src/**/*.js"],
+    "coveragePathIgnorePatterns": ["src/test.component.jsx"]
   }
 }
