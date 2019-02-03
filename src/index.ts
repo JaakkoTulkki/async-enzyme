@@ -1,4 +1,6 @@
-function waitFor(component , selector, timeout=100) {
+import Enzyme from 'enzyme';
+
+export function waitFor(component: Enzyme.ReactWrapper , selector: string, timeout: number=100) {
     let timeCounter = 0;
     const interval = 2;
     return new Promise((resolve, reject) => {
@@ -26,7 +28,7 @@ function waitFor(component , selector, timeout=100) {
     })
 }
 
-function waitNotToThrow(component, cb, timeout=100) {
+export function waitNotToThrow(component: Enzyme.ReactWrapper, cb: (component: Enzyme.ReactWrapper) => void, timeout:number=100) {
   component.update();
   let errorMessage = '';
   return new Promise((resolve, reject) => {
@@ -48,8 +50,4 @@ function waitNotToThrow(component, cb, timeout=100) {
       }
     }, interval);
   })
-}
-
-module.exports = {
-  waitFor, waitNotToThrow,
 }

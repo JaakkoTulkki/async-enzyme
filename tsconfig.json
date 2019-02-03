@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "lib": ["es2015"],
+    "target": "es5",
+    "rootDir": "src/",
+    "outDir": "dist",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "importHelpers": true,
+    "jsx": "react",
+    "alwaysStrict": true,
+    "sourceMap": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "declaration": true
+  },
+  "exclude": [
+    "node_modules",
+    "build"
+  ],
+  "include": [
+    "./src/**/*"
+  ]
+}
